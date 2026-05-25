@@ -17,12 +17,16 @@ class CaesarCipher:
             else:    
                 ciphertext.append(char)
         return ''.join(ciphertext)
+    
+    def decipher(self,ciphertext,key):
+        return self.encipher(ciphertext,-key)
 
 def main():
     cipher=CaesarCipher()
     
     while True:
         print("1. Encipher")
+        print("2. Decipher")
         
         choise=input("Your choice: ")
         
@@ -30,7 +34,12 @@ def main():
             plaintext= input("PlainText (english letters): ")
             key=int(input("Key (int): "))
             ciphertext= cipher.encipher(plaintext,key)
-            print(f"Ciphertext:{ciphertext}")
+            print(f"CipherText:{ciphertext}")
+        elif choise=='2':
+            ciphertext= input("CipherText: ")
+            key=int(input("Key (int): "))
+            ciphertext= cipher.decipher(ciphertext,key)
+            print(f"PlainText:{ciphertext}")
         elif choise=='4':
             print("Exiting program.")
             break
