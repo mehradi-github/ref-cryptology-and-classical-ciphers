@@ -1,11 +1,21 @@
 class CaesarCipher:
     def __init__(self):
-        self.uppercase='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        self.lowercase='abcdefghijklmnopqrstuvwxyz'
+        self.uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        self.lowercase = 'abcdefghijklmnopqrstuvwxyz'
         
     def encipher(self,plaintext,key):    
         ciphertext=[]
-        ciphertext.append(plaintext)
+        for char in plaintext:
+            if char in self.uppercase:
+                origin_index=self.uppercase.index(char)
+                new_index= (origin_index+key) % 26
+                ciphertext.append(self.uppercase[new_index])
+            elif char in self.lowercase:
+                origin_index=self.lowercase.index(char)
+                new_index= (origin_index+key) % 26
+                ciphertext.append(self.lowercase[new_index])
+            else:    
+                ciphertext.append(char)
         return ''.join(ciphertext)
 
 def main():
@@ -18,7 +28,7 @@ def main():
         
         if choise=='1':
             plaintext= input("PlainText (english letters): ")
-            key=int(input("key (int): "))
+            key=int(input("Key (int): "))
             ciphertext= cipher.encipher(plaintext,key)
             print(f"Ciphertext:{ciphertext}")
         elif choise=='4':
