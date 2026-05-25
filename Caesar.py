@@ -20,6 +20,22 @@ class CaesarCipher:
     
     def decipher(self,ciphertext,key):
         return self.encipher(ciphertext,-key)
+    
+    def attack(self,plaintext,ciphertext):
+        for i in range(len(plaintext)):
+            p_char=plaintext[i]
+            c_char=ciphertext[i]
+            if p_char in self.uppercase and c_char in self.uppercase:
+                p_index= self.uppercase.index(p_char)
+                c_index= self.uppercase.index(c_char)
+                key= (c_index - p_index) % 26
+                return key
+            elif p_char in self.lowercase and c_char in self.lowercase:
+                p_index= self.lowercase.index(p_char)
+                c_index= self.lowercase.index(c_char)
+                key= (c_index - p_index) % 26
+                return key
+        raise ValueError("Not Valid !!!")    
 
 def main():
     cipher=CaesarCipher()
@@ -27,6 +43,8 @@ def main():
     while True:
         print("1. Encipher")
         print("2. Decipher")
+        print("3. Attack")
+        print("4. Exit")
         
         choise=input("Your choice: ")
         
@@ -40,6 +58,11 @@ def main():
             key=int(input("Key (int): "))
             ciphertext= cipher.decipher(ciphertext,key)
             print(f"PlainText:{ciphertext}")
+        elif choise=='3':
+            plaintext= input("PlainText: ")
+            ciphertext= input("CipherText: ")
+            key= cipher.attack(plaintext,ciphertext)
+            print(f"Key:{key}")
         elif choise=='4':
             print("Exiting program.")
             break
