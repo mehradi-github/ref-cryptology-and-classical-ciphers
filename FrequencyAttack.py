@@ -38,7 +38,7 @@ class FrequencyAttack:
         
         cipher_freq,total= self.frequency_analysis(ciphertext)        
         most_frequent=max(cipher_freq,key=cipher_freq.get)         
-        key_candidate=(self.cipher.uppercase.index(most_frequent)-self.cipher.uppercase('E')) % 26
+        key_candidate=(self.cipher.uppercase.index(most_frequent)-self.cipher.uppercase.index('E')) % 26
            
         return key_candidate, most_frequent
        
