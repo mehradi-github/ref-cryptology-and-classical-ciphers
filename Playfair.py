@@ -120,6 +120,13 @@ def main():
     
     print(f"Plaintext:  {plaintext}")
     print(f"Ciphertext: {ciphertext}")
+    
+    print("-" * 10)
+    ciphertext = "VW HI DV PD RC SM KI SW KB NV"    
+    plaintext = cipher.encipher(ciphertext)
+    
+    print(f"Ciphertext: {ciphertext}")
+    print(f"Plaintext:  {plaintext}")
 
 
 if __name__ == "__main__":
