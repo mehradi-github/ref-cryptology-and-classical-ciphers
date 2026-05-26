@@ -3,7 +3,8 @@ import math
 class ColumnarTranspositionCipher:
     def __init__(self, key):
         self.key = key
-        self.num_cols = len(key)
+        self.num_cols = 5
+        self.padding = ['a', 'b', 'c', 'd', 'e']
         
     def encipher(self, plaintext):
         plaintext = plaintext.replace(" ", "").lower()
@@ -11,26 +12,25 @@ class ColumnarTranspositionCipher:
         
         matrix = [['' for _ in range(self.num_cols)] for _ in range(num_rows)]
         index = 0
+        pad_index = 0
         for r in range(num_rows):
             for c in range(self.num_cols):
                 if index < len(plaintext):
                     matrix[r][c] = plaintext[index]
                     index += 1
                 else:
-                    matrix[r][c] = 'x'
+                    matrix[r][c] = self.padding[pad_index % self.num_cols]
+                    pad_index += 1
         
-        key_order = [(self.key[c], c) for c in range(self.num_cols)]
-        key_order.sort(key=lambda x: x[0])
-        reading_order = [c for _, c in key_order]
         
-        result = []
-        for c in reading_order:
-            for r in range(num_rows):
-                result.append(matrix[r][c])
+        order = [col for _, col in sorted([(self.key[c], c) for c in range(self.num_cols)])]
         
-        return ''.join(result)
+        return ''.join(matrix[r][c] for c in order for r in range(num_rows))
         
-            
+    def decipher(self, ciphertext):
+           
+        pass
+        
 def main():
     cipher = ColumnarTranspositionCipher([5, 3, 4, 2, 1])
     
