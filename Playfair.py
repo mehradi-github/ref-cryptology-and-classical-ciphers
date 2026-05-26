@@ -62,11 +62,14 @@ class PlayfairCipher:
         row2, col2 = self.find_position(b)
         
         if row1 == row2:
-            return (self.matrix[row1][(col1 + 1) % 5] + self.matrix[row2][(col2 + 1) % 5])        
+            return (self.matrix[row1][(col1 + 1) % 5] + 
+                    self.matrix[row2][(col2 + 1) % 5])        
         elif col1 == col2:
-            return (self.matrix[(row1 + 1) % 5][col1] + self.matrix[(row2 + 1) % 5][col2])        
+            return (self.matrix[(row1 + 1) % 5][col1] + 
+                    self.matrix[(row2 + 1) % 5][col2])        
         else:
-            return (self.matrix[row1][col2] + self.matrix[row2][col1])
+            return (self.matrix[row1][col2] + 
+                    self.matrix[row2][col1])
                
     def encipher(self, plaintext):
         pairs = self.prepare_text(plaintext)
@@ -84,13 +87,16 @@ class PlayfairCipher:
         row2, col2 = self.find_position(b)
         
         if row1 == row2:
-            return (self.matrix[row1][(col1 - 1) % 5] + self.matrix[row2][(col2 - 1) % 5])
+            return (self.matrix[row1][(col1 - 1) % 5] + 
+                    self.matrix[row2][(col2 - 1) % 5])
         
         elif col1 == col2:
-            return (self.matrix[(row1 - 1) % 5][col1] + self.matrix[(row2 - 1) % 5][col2])
+            return (self.matrix[(row1 - 1) % 5][col1] + 
+                    self.matrix[(row2 - 1) % 5][col2])
         
         else:
-            return (self.matrix[row1][col2] + self.matrix[row2][col1])
+            return (self.matrix[row1][col2] + 
+                    self.matrix[row2][col1])
             
                 
     def decipher(self, ciphertext):
@@ -123,7 +129,7 @@ def main():
     
     print("-" * 10)
     ciphertext = "VW HI DV PD RC SM KI SW KB NV"    
-    plaintext = cipher.encipher(ciphertext)
+    plaintext = cipher.decipher(ciphertext)
     
     print(f"Ciphertext: {ciphertext}")
     print(f"Plaintext:  {plaintext}")
