@@ -36,20 +36,20 @@ class FrequencyAttack:
        
     def find_key_by_frequency(self, ciphertext):
         
-        
-         most_frequent=0
-         key_candidate=""   
-         return key_candidate, most_frequent
+        cipher_freq,total= self.frequency_analysis(ciphertext)        
+        most_frequent=max(cipher_freq,key=cipher_freq.get)         
+        key_candidate=(self.cipher.uppercase.index(most_frequent)-self.cipher.uppercase('E')) % 26
+           
+        return key_candidate, most_frequent
        
     def attack_caesar(self, ciphertext):
         print("CipherText: ",ciphertext)
         
-        key, most_frequent = self.find_key_by_frequency(ciphertext)
-        
-        
-        plaintext = self.cipher.decipher(ciphertext, key)
-        
+        key, most_frequent = self.find_key_by_frequency(ciphertext) 
+        plaintext = self.cipher.decipher(ciphertext, key)        
         print(f"plainText= {plaintext} with key= {key}")
+        
+        
         best_key=""
         best_decipher=""
         return best_key, best_decipher
