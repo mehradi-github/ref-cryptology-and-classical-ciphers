@@ -46,7 +46,37 @@ class PlayfairCipher:
                 i += 1
         
         return pairs
-       
+    
+    def find_position(self, char):
+        if char == 'J':
+            char = 'I'
+        
+        for i in range(5):
+            for j in range(5):
+                if self.matrix[i][j] == char:
+                    return i, j
+        return None
+    
+    def encrypt_pair(self, a, b):        
+        row1, col1 = self.find_position(a)
+        row2, col2 = self.find_position(b)
+        
+        if row1 == row2:
+            return (self.matrix[row1][(col1 + 1) % 5] + self.matrix[row2][(col2 + 1) % 5])        
+        elif col1 == col2:
+            return (self.matrix[(row1 + 1) % 5][col1] + self.matrix[(row2 + 1) % 5][col2])        
+        else:
+            return (self.matrix[row1][col2] + self.matrix[row2][col1])
+               
+    def encipher(self, plaintext):
+        pairs = self.prepare_text(plaintext)
+        ciphertext = []
+        
+        for pair in pairs:
+            encrypted_pair = self.encrypt_pair(pair[0], pair[1])
+            ciphertext.append(encrypted_pair)
+        
+        return ''.join(ciphertext)    
         
         
 def main():
