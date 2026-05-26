@@ -1,3 +1,5 @@
+from Caesar import CaesarCipher
+
 class FrequencyAttack:
     def __init__(self):
        self.english_freq = {
@@ -8,10 +10,33 @@ class FrequencyAttack:
             'V': 0.978, 'K': 0.772, 'J': 0.153, 'X': 0.150, 'Q': 0.095, 'Z': 0.074
         }
        
-       self.alphabet_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-       self.alphabet_lower = 'abcdefghijklmnopqrstuvwxyz'
+       self.cipher=CaesarCipher()
+    #    self.alphabet_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    #    self.alphabet_lower = 'abcdefghijklmnopqrstuvwxyz'
+    
+    def frequency_analysis(self,text):
+        text_clean=text.replace(" ","").upper()
+        letter_count = {}        
+        total_letters=0
+        
+        for char in text_clean:
+            if char in self.cipher.uppercase:
+                letter_count[char]= letter_count.get(char,0)+1
+                total_letters +=1
+        
+        frequencies={}
+        for letter in self.cipher.uppercase:
+            if letter in letter_count:
+                frequencies[letter]=(letter_count[letter]/total_letters)*100
+            else:
+                frequencies[letter]=0.0
+        
+        
+        return frequencies, total_letters
        
     def find_key_by_frequency(self, ciphertext):
+        
+        
          most_frequent=0
          key_candidate=""   
          return key_candidate, most_frequent
@@ -20,7 +45,10 @@ class FrequencyAttack:
         print("CipherText: ",ciphertext)
         
         key, most_frequent = self.find_key_by_frequency(ciphertext)
-        plaintext = self.decipher(ciphertext, key)
+        
+        
+        plaintext = self.cipher.decipher(ciphertext, key)
+        
         print(f"plainText= {plaintext} with key= {key}")
         best_key=""
         best_decipher=""
