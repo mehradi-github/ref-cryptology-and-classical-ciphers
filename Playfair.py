@@ -81,6 +81,13 @@ class PlayfairCipher:
         
 def main():
     key = "PASSWORD"
+    cipher = PlayfairCipher(key)
+    
+    plaintext = "INFORMATION TECHNOLOGY"    
+    ciphertext = cipher.encipher(plaintext)
+    
+    print(f"Plaintext:  {plaintext}")
+    print(f"Ciphertext: {ciphertext}")
 
 
 if __name__ == "__main__":
